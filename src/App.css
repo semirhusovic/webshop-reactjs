@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.slide-text {
+  font-size: 1.2rem;
+  font-family: "Comic Sans MS", serif;
+  position: absolute;
+  top: 10rem;
+  left: 5rem;
   color: white;
+  background: #2dd4bf;
+  padding: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.product-discount {
+  position: absolute;
+  z-index: 1;
+  width: 75px;
+  background: #2DD4BF;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 0 0 5px #2DD4BF;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.product-discount .discount-percent {
+  background: #141c22;
+  padding: 4px;
+  text-align: center;
+  font-size: 18px;
+  color: #2DD4BF;
+  font-family: "Corporate Rounded Voli Bold", sans-serif;
+  border-top-left-radius: 8px;
 }
+
+.product-discount .discount-date {
+  color: #141c22;
+  font-size: 11px;
+  font-family: "Corporate Rounded Voli Bold", sans-serif;
+  text-align: center;
+  margin: 5px auto 0;
+}
+
+/* .swiper-button-prev {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  left: 0 !important;
+}
+
+.swiper-button-next {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  right: 0 !important;
+} */

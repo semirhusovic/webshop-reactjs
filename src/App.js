@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './Components/Layout/Header';
+import { CartProvider } from './Contexts/CartContext';
+import { AuthContextProvider } from './Contexts/AuthContext';
+import Login from './Components/Auth/Login';
+import Homepage from './Components/Layout/Homepage';
+import Cart from './Components/Cart';
+import SingleItemPage from './Components/Layout/SingleItemPage';
+import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <CartProvider>
+        <Router>
+          <Header>
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/product/:id" element={<SingleItemPage />} />
+            </Routes>
+            <ToastContainer autoClose={8000} />
+          </Header>
+        </Router>
+      </CartProvider>
+    </AuthContextProvider>
   );
 }
 

@@ -1,0 +1,13 @@
+.swiper-button-prev {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  left: 0 !important;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.swiper-button-next {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  right: 0 !important;
+  border-radius: 15px 0px 0px 15px;
+}
