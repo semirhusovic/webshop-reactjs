@@ -17,7 +17,7 @@ export const CartProvider = (props) => {
   const handleAdd = (product) => {
     if(authCtx.isLoggedIn) {
       // req za dodavanje
-      const addedProduct = fetch(API.url  + 'cart-add', {
+      const addedProduct = fetch(API.url  + 'cart-add/1/' + product.id , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,6 +54,32 @@ export const CartProvider = (props) => {
   };
 
   const handleRemove = (product) => {
+    if(authCtx.isLoggedIn) {
+      // req za dodavanje
+      const addedProduct = fetch(API.url  + 'cart-remove', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        body: JSON.stringify({
+          product_id: product.id,
+          quantity: 1
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.error) {
+            console.log('greska')
+          } else {
+            setUpdated(updated +1);
+            console.log('radi')
+          }
+        })
+        .catch((error) => console.log(error));
+      // req za dodavanje
+    } else {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist.pivot.quantity === 1) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
@@ -62,14 +88,40 @@ export const CartProvider = (props) => {
         cartItems.map((x) => (x.id === product.id ? { ...exist,pivot : {quantity: exist.pivot.quantity-1}} : x))
       );
     }
+  }
   };
 
 
   const handleDelete = (product) => {
+    if(authCtx.isLoggedIn) {
+      // req za dodavanje
+      const addedProduct = fetch(API.url  + 'cart-delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        body: JSON.stringify({
+          product_id: product.id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.error) {
+            console.log('greska')
+          } else {
+            setUpdated(updated +1);
+            console.log('radi')
+          }
+        })
+        .catch((error) => console.log(error));
+      // req za dodavanje
+    } else {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
-    }
+    }}
   };
 
   const ContextValue = {
@@ -81,7 +133,7 @@ export const CartProvider = (props) => {
 
   useEffect(() => {
     if(authCtx.isLoggedIn) {
-      const cartItemsFromDB = fetch(API.url  + 'get-user-cart', {
+      const cartItemsFromDB = fetch(API.url  + 'get-user-cart/1', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,17 +146,20 @@ export const CartProvider = (props) => {
             console.log('greska')
           } else {
               setCartItems(data);
-              // setCartItems(data)
-            // console.log(radi));
           }
         })
         .catch((error) => console.log(error));
-        // console.log(cartItems);
     } else { 
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
     console.log(cartItems)
-  }, [updated]);
+  }, [updated,authCtx.isLoggedIn]);
+
+useEffect(()=>{
+if(!authCtx.isLoggedIn) {
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+},[cartItems])
 
   return <CartContext.Provider value={ContextValue}>{props.children}</CartContext.Provider>;
 };

@@ -40,7 +40,7 @@ function CartProductCard({product}) {
                             </div>
                             <div className="flex-auto">
                                 <div className="float-right">
-                                    <button onClick={() => {cartCtx.delete(product)}} className="px-4 py-2 inline-block text-red-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100">Delete <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <button onClick={() => {cartCtx.delete(product)}} className="px-4 py-2 inline-block text-red-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100">Delete <i className="fa fa-trash" aria-hidden="true"></i>
 </button>
                                 </div>
                             </div>

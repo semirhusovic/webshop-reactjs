@@ -21,6 +21,7 @@ function Homepage() {
   const { data: products, loading: productIsLoading } = useFetch(
     API.url + API.products
   );
+  console.log(products);
   return (
     <>
     {/* // slider */}
@@ -66,11 +67,11 @@ function Homepage() {
     {/* // end slider */}
 
     {/* //products grid */}
-    <div class="container w-5/6 mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="container w-5/6 mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products &&
           products.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

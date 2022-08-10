@@ -9,7 +9,7 @@ function Header({ children }) {
   const [cartItems] = useContext(CartContext)['cartState'];
   return (
     <div className="App">
-      <body className="font-sans antialiased">
+      <div className="font-sans antialiased">
         <div className="min-h-screen bg-gray-100">
 
         <header className="bg-white py-3 border-b">
@@ -50,7 +50,7 @@ function Header({ children }) {
                     <i className="text-gray-400 w-5 fa fa-shopping-cart"></i>
                     <span className="hidden lg:inline ml-1">My cart
                     {cartItems.length > 0 && (
-                      <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded ml-2">{cartItems.length}</span>
+                      <span className="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded ml-2">{cartItems.length}</span>
                     )}
                     </span>
                 </Link>
@@ -102,7 +102,7 @@ function Header({ children }) {
                 </div>
             </div>
         </section>
-    </body>
+    </div>
     </div>
   );
 }

@@ -43,8 +43,8 @@ import { API } from "../../apiRoutes";
 
           {images &&
           images.map((image) => (
-            <SwiperSlide key={image.fileName}>
-            <img src={API.imagePath + image.fileName} />
+            <SwiperSlide key={image}>
+            <img src={API.imagePath + image} />
           </SwiperSlide>
           ))}
       </Swiper>

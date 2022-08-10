@@ -8,6 +8,7 @@ import Homepage from './Components/Layout/Homepage';
 import Cart from './Components/Cart';
 import SingleItemPage from './Components/Layout/SingleItemPage';
 import { ToastContainer } from 'react-toastify';
+import Register from './Components/Auth/Register';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/product/:id" element={<SingleItemPage />} />
             </Routes>

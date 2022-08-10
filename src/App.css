@@ -38,6 +38,10 @@
   margin: 5px auto 0;
 }
 
+.lazy-load-image-background  .lazy-load-image-loaded{
+  display: inline !important;
+}
+
 /* .swiper-button-prev {
   background: rgba(0, 0, 0, 0.5);
   padding: 1rem;

@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const validationSchema = yup.object({
   email: yup.string().required('Email is required').email('Please enter a valid email'),
-  password: yup.string().required('Password is required')
+  password: yup.string().required('Password is required').min(5,'Password should be at least 5 characters')
 });
 
 function Login() {
@@ -22,7 +22,7 @@ function Login() {
       password: ''
     },
     onSubmit: (values) => {
-      fetch(API.url  + 'login', {
+      fetch(API.url  + API.login, {
         method: 'POST',
         body: JSON.stringify({
           email: values.email,
@@ -36,7 +36,7 @@ function Login() {
         .then((data) => {
           if (data.error) {
             toast.error(data.error)
-            sethasError(data.error);
+            // sethasError(data.error);
           } else {
             authCtx.login(data.access_token);
             toast.success('You have successfuly logged in!')
@@ -67,10 +67,9 @@ function Login() {
                        required
                        value={formik.values.email}
                        onChange={formik.handleChange}
-                       error={formik.touched.email && Boolean(formik.errors.email)}
-                       helperText={formik.touched.email && formik.errors.email}
                        placeholder="Type here" />
             </div>
+            <span className='text-red-500'>{formik.touched.email && formik.errors.email}</span>
 
             <div className="mb-4">
                 <label className="block mb-1"> Password </label>
@@ -79,10 +78,9 @@ function Login() {
                        type="password"
                        value={formik.values.password}
                        onChange={formik.handleChange}
-                       error={formik.touched.password && Boolean(formik.errors.password)}
-                       helperText={formik.touched.password && formik.errors.password} 
                        placeholder="Type here" />
             </div>
+            <span className='text-red-500 mx-auto'>{formik.touched.password && formik.errors.password}</span>
 
             <label className="flex items-center w-max mb-5">
                 <input  name="" type="checkbox" className="h-4 w-4 checked:bg-teal-400 focus:border-teal-300" />
@@ -99,7 +97,7 @@ function Login() {
 
             <button type="submit" className="px-4 py-2 text-center w-full inline-block text-white bg-teal-400 border border-transparent rounded-md hover:bg-teal-600">  Sign in </button>
 
-                Don’t have an account?  <Link className="text-blue-500" to={'/'}>Sign up</Link>
+                Don’t have an account?  <Link className="text-blue-500" to={'/register'}>Sign up</Link>
         </form>
     </div>
     <ToastContainer />
