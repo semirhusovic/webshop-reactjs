@@ -5,5 +5,6 @@ export const API = {
   login: 'login/',
   slides: 'sliders/',
   categories: 'categories/',
+  stock: 'stock/',
   imagePath : 'http://127.0.0.1:8000/public/img/'
 };

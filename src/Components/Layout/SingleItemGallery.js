@@ -23,6 +23,7 @@ import { API } from "../../apiRoutes";
       "--swiper-navigation-color": "#2dd4bf",
       "--swiper-pagination-color": "#2dd4bf",
       "--swiper-navigation-size": "#2dd4bf",
+      "--swiper-slide-img": "contain"
     }}
       modules={[Pagination,Autoplay,Navigation,EffectFade,Thumbs,FreeMode]}
       navigation
@@ -44,7 +45,7 @@ import { API } from "../../apiRoutes";
           {images &&
           images.map((image) => (
             <SwiperSlide key={image}>
-            <img src={API.imagePath + image} />
+            <img className="object-contain" src={API.imagePath + image} />
           </SwiperSlide>
           ))}
       </Swiper>

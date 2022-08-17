@@ -10,10 +10,10 @@ function ProductCard({product}) {
   const cartCtx = useContext(CartContext);
   return (
     <article className="my-4">
-      {product.discounts.length > 0 && product.total_price < product.productPrice &&
+      {product.discounts.length > 0 && product.total_price < product.product_price &&
       <div className="product-discount">
         {/* <div class="discount-percent">{((product.total_price / product.productPrice)*100).toFixed(2)}%</div>  */}
-        <div className="discount-percent">{(((product.product_price - product.total_price) / product.product_price)*100).toFixed(2)}%</div> 
+        <div className="discount-percent">{-(((product.product_price - product.total_price) / product.product_price)*100).toFixed(2)}%</div> 
         <div className="discount-date">{product.discounts[0].expired_at}</div>
       </div>}
       <Link to={'/product/'+product.id}
@@ -23,9 +23,9 @@ function ProductCard({product}) {
            placeholderSrc="https://t4.ftcdn.net/jpg/02/61/49/05/360_F_261490536_nJ5LSRAVZA0CK9Nvt2E1fXJVUfpiqvhT.jpg"
            effect="blur"
           height="16rem"
-      src={API.imagePath + product.images[0]} // use normal <img> attributes as props
+      src={API.imagePath + product.images[0]}
       width="100%"
-      className="mx-auto mix-blend-multiply w-auto max-h-64"
+      className="mx-auto w-auto max-h-64"
        />
       </Link>
       <div className="pt-3">

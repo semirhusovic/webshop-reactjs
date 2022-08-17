@@ -10,6 +10,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import 'swiper/css/parallax';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import ProductCard from "../ProductCard";
 import './Homepage-slider.css';
 
@@ -21,7 +23,7 @@ function Homepage() {
   const { data: products, loading: productIsLoading } = useFetch(
     API.url + API.products
   );
-  console.log(products);
+  // console.log(slides);
   return (
     <>
     {/* // slider */}
@@ -52,10 +54,18 @@ function Homepage() {
 {slides &&
           slides.map((s) => (
 
-
             <SwiperSlide key={s.id}>
                <a href={s.link} target="_blank" rel="noopener">
-                  <img className="object-cover" src={API.imagePath + s.image.fileName} />
+               <LazyLoadImage
+                 alt={s.title}
+                 effect="blur"
+                 height="auto"
+                 width="100%"
+                 placeholderSrc="https://voli.me/img/placeholder.jpg"
+                 src={API.imagePath + s.image[0].file_name}
+                 className="object-cover"
+                />
+                  {/* <img className="object-cover" src={API.imagePath + s.image[0].file_name} /> */}
                   <div className="slide-text"><span>{s.title}</span></div>
                </a>
             </SwiperSlide>

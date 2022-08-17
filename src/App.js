@@ -9,6 +9,7 @@ import Cart from './Components/Cart';
 import SingleItemPage from './Components/Layout/SingleItemPage';
 import { ToastContainer } from 'react-toastify';
 import Register from './Components/Auth/Register';
+import Checkout from './Components/Layout/Checkout';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/product/:id" element={<SingleItemPage />} />
             </Routes>
             <ToastContainer autoClose={8000} />

@@ -5,8 +5,8 @@ import CartProductCard from './Layout/CartProductCard';
 
 function Cart() {
   const [cartItems] = useContext(CartContext)['cartState'];
-  const totalAmmout = cartItems.reduce((a, c) => a + c.pivot.quantity * c.productPrice, 0);
-  const totalAmmoutDiscounted = cartItems.reduce((a, c) => a + c.pivot.quantity * c.total_price, 0);
+  const totalAmmout = cartItems.reduce((a, c) => a + c.quantity * c.product_price, 0);
+  const totalAmmoutDiscounted = cartItems.reduce((a, c) => a + c.quantity * c.total_price, 0);
   return (
     <>
     <section className="py-10">
@@ -17,8 +17,8 @@ function Cart() {
 
                     <article className="border border-gray-200 bg-white shadow-sm rounded mb-5 p-3 lg:p-5">
 
-                    {cartItems.map((product) => (
-                      <div key={product.id}>
+                    {cartItems.map((product,index) => (
+                      <div key={index}>
                         {
                           <>
                             <CartProductCard product={product}></CartProductCard>
@@ -55,7 +55,7 @@ function Cart() {
                             </li>
                         </ul>
 
-                        <a className="px-4 py-3 mb-2 inline-block text-lg w-full text-center font-medium text-white bg-teal-400 border border-transparent rounded-md hover:bg-teal-600" href="#"> Checkout </a>
+                        <Link className="px-4 py-3 mb-2 inline-block text-lg w-full text-center font-medium text-white bg-teal-400 border border-transparent rounded-md hover:bg-teal-600" to={'/checkout'}> Checkout </Link>
 
                         <Link className="px-4 py-3 inline-block text-lg w-full text-center font-medium text-teal-400 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100" to={'/'}> Back to shop </Link>
 

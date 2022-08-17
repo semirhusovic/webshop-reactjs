@@ -14,109 +14,84 @@ export const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState(cartItemsFromLS);
   const [updated,setUpdated] = useState(0);
 
-  const handleAdd = (product) => {
+  const handleAdd = (product,stockId) => {
     if(authCtx.isLoggedIn) {
       // req za dodavanje
-      const addedProduct = fetch(API.url  + 'cart-add/1/' + product.id , {
+      const addedProduct = fetch(API.url  + 'cart-add/1/' + product.id + '/' + stockId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        body: JSON.stringify({
-          product_id: product.id,
-          quantity: 1
-        }),
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data)
           if (data.error) {
-            console.log('greska')
+            console.log('greska',data.error)
           } else {
-            setUpdated(updated +1);
-            console.log('radi')
+            setUpdated(updated + 1);
           }
         })
         .catch((error) => console.log(error));
-      // req za dodavanje
     } else {
       const exists = cartItems.find((x) => x.id === product.id);
     if (exists) {
       setCartItems(
-        cartItems.map((x) => (x.id === product.id ? { ...exists, pivot : {quantity: exists.pivot.quantity+1}} : x))
+        cartItems.map((x) => (x.id === product.id ? { ...exists, quantity: exists.quantity+1} : x))
       );
     } else {
-      setCartItems([...cartItems, { ...product, pivot : {quantity: 1} }]);
+      setCartItems([...cartItems, { ...product, quantity: 1} ]);
     }
     }
 
   };
 
-  const handleRemove = (product) => {
+  const handleRemove = (product,stockId) => {
     if(authCtx.isLoggedIn) {
       // req za dodavanje
-      const addedProduct = fetch(API.url  + 'cart-remove', {
+      const addedProduct = fetch(API.url  + 'cart-remove/1/' + product.id+'/'+stockId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        body: JSON.stringify({
-          product_id: product.id,
-          quantity: 1
-        }),
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          if (data.error) {
-            console.log('greska')
-          } else {
-            setUpdated(updated +1);
-            console.log('radi')
+        .then((res) => {
+          if (res.status == 204){
+            setUpdated(updated + 1);
           }
         })
         .catch((error) => console.log(error));
       // req za dodavanje
     } else {
     const exist = cartItems.find((x) => x.id === product.id);
-    if (exist.pivot.quantity === 1) {
+    if (exist.quantity === 1) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
     } else {
       setCartItems(
-        cartItems.map((x) => (x.id === product.id ? { ...exist,pivot : {quantity: exist.pivot.quantity-1}} : x))
+        cartItems.map((x) => (x.id === product.id ? { ...exist, quantity: exist.quantity-1} : x))
       );
     }
   }
   };
 
 
-  const handleDelete = (product) => {
+  const handleDelete = (product,stockId) => {
     if(authCtx.isLoggedIn) {
-      // req za dodavanje
-      const addedProduct = fetch(API.url  + 'cart-delete', {
+      const addedProduct = fetch(API.url  + 'cart-delete/1/'+ product.id+'/'+stockId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        body: JSON.stringify({
-          product_id: product.id,
-        }),
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          if (data.error) {
-            console.log('greska')
-          } else {
-            setUpdated(updated +1);
-            console.log('radi')
+        .then((res) => {
+          if (res.status == 204){
+            setUpdated(updated + 1);
           }
         })
         .catch((error) => console.log(error));
-      // req za dodavanje
     } else {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
@@ -134,7 +109,7 @@ export const CartProvider = (props) => {
   useEffect(() => {
     if(authCtx.isLoggedIn) {
       const cartItemsFromDB = fetch(API.url  + 'get-user-cart/1', {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -152,7 +127,7 @@ export const CartProvider = (props) => {
     } else { 
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
-    console.log(cartItems)
+    // console.log(cartItems)
   }, [updated,authCtx.isLoggedIn]);
 
 useEffect(()=>{
